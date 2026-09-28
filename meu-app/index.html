@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="description" content="App de treinos diários de alta performance para atletas de artes marciais e musculação.">
+  <title>Fight & Fit - Alta Performance</title>
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Manifest do PWA -->
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+  <!-- STATUS ONLINE/OFFLINE -->
+  <div id="status-bar" class="status-bar online">
+    <span id="status-text">Online</span>
+  </div>
+
+  <!-- APLICAÇÃO PRINCIPAL -->
+  <div id="main-app" class="screen">
+    
+    <!-- CABEÇALHO DA APP -->
+    <header class="app-header">
+      <div class="user-info">
+        <h1 id="athlete-greeting">MAMBA MENTALITY 🔥</h1>
+        <p id="current-date">Carregando data...</p>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section class="dashboard-card">
+      <div class="dashboard-header">
+        <span class="card-subtitle">TREINO DO DIA</span>
+        <span id="today-day-name" class="day-badge">SEGUNDA-FEIRA</span>
+      </div>
+      <h3 id="today-modalities">Peito • Tríceps • Ombro + Jiu-Jitsu</h3>
+      
+      <div class="progress-section">
+        <div class="progress-info">
+          <span id="progress-count">0/0 concluídos</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+      
+      <button id="btn-go-today" class="btn-primary full-width">Acessar Treino Hoje</button>
+    </section>
+
+    <!-- NAVEGAÇÃO ENTRE OS DIAS DA SEMANA -->
+    <nav class="week-nav">
+      <button class="day-tab active" data-day="segunda">SEG</button>
+      <button class="day-tab" data-day="terca">TER</button>
+      <button class="day-tab" data-day="quarta">QUA</button>
+      <button class="day-tab" data-day="quinta">QUI</button>
+      <button class="day-tab" data-day="sexta">SEX</button>
+      <button class="day-tab" data-day="sabado">SÁB</button>
+    </nav>
+
+    <!-- CONTEÚDO DO TREINO DO DIA SELECIONADO -->
+    <main class="workout-content">
+      <div class="workout-header">
+        <h2 id="selected-day-title">Segunda-Feira</h2>
+        <span id="selected-day-modalities" class="workout-sub">Foco do dia</span>
+      </div>
+
+      <!-- LISTA DINÂMICA DE EXERCÍCIOS -->
+      <div id="exercises-container" class="exercises-container">
+        <!-- Exercícios serão renderizados aqui pelo JS -->
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODAL DO CRONÔMETRO DE DESCANSO -->
+  <div id="timer-modal" class="timer-modal hidden">
+    <div class="timer-card">
+      <h3>TEMPO DE DESCANSO</h3>
+      <div id="timer-display" class="timer-display">00:00</div>
+      
+      <div class="timer-presets">
+        <button class="btn-timer-preset" data-time="30">30s</button>
+        <button class="btn-timer-preset" data-time="60">60s</button>
+        <button class="btn-timer-preset" data-time="90">90s</button>
+        <button class="btn-timer-preset" data-time="120">120s</button>
+      </div>
+
+      <div class="timer-controls">
+        <button id="btn-timer-pause" class="btn-secondary">Pausar</button>
+        <button id="btn-timer-close" class="btn-danger">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT PRINCIPAL -->
+  <script src="script.js"></script>
+</body>
+</html>
