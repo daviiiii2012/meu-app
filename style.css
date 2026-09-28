@@ -1,0 +1,551 @@
+/* ==========================================================================
+   RESET E VARIÁVEIS GLOBAIS
+   ========================================================================== */
+:root {
+  --bg-dark: #0a0a0c;
+  --bg-card: #141418;
+  --bg-card-hover: #1c1c22;
+  --border-color: #2a2a35;
+  
+  --primary-red: #ff003c;
+  --primary-red-glow: rgba(255, 0, 60, 0.35);
+  --accent-blue: #00f0ff;
+  --accent-blue-glow: rgba(0, 240, 255, 0.25);
+  
+  --text-main: #f0f0f5;
+  --text-muted: #8e8e9e;
+  --text-success: #00ff88;
+  
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+/* ==========================================================================
+   UTILITÁRIOS E TELAS
+   ========================================================================== */
+.screen {
+  width: 100%;
+  max-width: 480px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Status Bar Online/Offline */
+.status-bar {
+  width: 100%;
+  text-align: center;
+  padding: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+}
+
+.status-bar.online {
+  background-color: rgba(0, 255, 136, 0.15);
+  color: var(--text-success);
+}
+
+.status-bar.offline {
+  background-color: rgba(255, 0, 60, 0.2);
+  color: var(--primary-red);
+}
+
+/* ==========================================================================
+   TELA DE BLOQUEIO POR PIN
+   ========================================================================== */
+.pin-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+}
+
+.badge-tag {
+  background: var(--primary-red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 12px var(--primary-red-glow);
+}
+
+.pin-container h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.pin-container p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.pin-display {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.pin-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.pin-dot.filled {
+  background: var(--accent-blue);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 10px var(--accent-blue-glow);
+}
+
+.pin-error-msg {
+  color: var(--primary-red);
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-height: 24px;
+  margin-bottom: 12px;
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.key-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.key-btn:active {
+  background: var(--border-color);
+  transform: scale(0.95);
+}
+
+.action-key {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+}
+
+/* ==========================================================================
+   HEADER & DASHBOARD
+   ========================================================================== */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info h1 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.user-info p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.icon-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.dashboard-card {
+  background: linear-gradient(145deg, #181820, #101014);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-red);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-subtitle {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.day-badge {
+  background: rgba(255, 0, 60, 0.15);
+  color: var(--primary-red);
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.dashboard-card h3 {
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-dark);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-red), var(--accent-blue));
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+/* ==========================================================================
+   BOTÕES GERAIS
+   ========================================================================== */
+.btn-primary {
+  background: var(--primary-red);
+  color: #fff;
+  border: none;
+  font-weight: 800;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px var(--primary-red-glow);
+  transition: transform 0.1s;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ==========================================================================
+   NAVEGAÇÃO DA SEMANA (ABAS)
+   ========================================================================== */
+.week-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+}
+
+.week-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.day-tab {
+  flex: 1;
+  min-width: 60px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 12px 0;
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.day-tab.active {
+  background: var(--accent-blue);
+  color: #000;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px var(--accent-blue-glow);
+}
+
+/* ==========================================================================
+   LISTA DE EXERCÍCIOS
+   ========================================================================== */
+.workout-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.workout-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.workout-sub {
+  font-size: 0.85rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+.exercises-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exercise-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+
+.exercise-card.completed {
+  border-color: var(--text-success);
+  opacity: 0.85;
+}
+
+.exercise-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.exercise-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.exercise-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Checkbox Estilizado */
+.custom-checkbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--bg-dark);
+}
+
+.exercise-card.completed .custom-checkbox {
+  background: var(--text-success);
+  border-color: var(--text-success);
+  color: #000;
+  font-weight: 900;
+}
+
+/* Campos de Entrada de Carga */
+.weight-input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-dark);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  width: fit-content;
+}
+
+.weight-input-container label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.weight-input {
+  background: transparent;
+  border: none;
+  color: var(--accent-blue);
+  font-size: 1.1rem;
+  font-weight: 800;
+  width: 60px;
+  text-align: right;
+  outline: none;
+}
+
+/* Botões de Descanso do Card */
+.timer-btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-timer-trigger {
+  flex: 1;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: var(--accent-blue);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   MODAL DO CRONÔMETRO
+   ========================================================================== */
+.timer-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.timer-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.timer-display {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--accent-blue);
+  font-family: monospace;
+  margin: 16px 0;
+  text-shadow: 0 0 20px var(--accent-blue-glow);
+}
+
+.timer-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.btn-timer-preset {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 10px 0;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-secondary {
+  flex: 1;
+  background: var(--border-color);
+  color: var(--text-main);
+  border: none;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-danger {
+  flex: 1;
+  background: rgba(255, 0, 60, 0.2);
+  color: var(--primary-red);
+  border: 1px solid var(--primary-red);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
